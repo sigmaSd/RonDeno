@@ -4,10 +4,9 @@ const { ron_from_str, ron_to_string } = await instantiate();
 
 export class Ron {
   #value: WasmRon;
-  static FromString(str: string): Ron {
-    const ron = new Ron();
-    ron.#value = ron_from_str(str);
-    return ron;
+  constructor(str: string) {
+    this.#value = ron_from_str(str);
+    return this;
   }
   ToString(): string {
     return ron_to_string(this.#value);
