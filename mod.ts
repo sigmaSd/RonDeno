@@ -10,7 +10,7 @@ const {
 export class Ron {
   #value?: WasmRon;
 
-  static fromString(str: string) {
+  static fromString(str: string): Ron {
     const ron = new Ron();
     ron.#value = ron_from_str(str);
     return ron;
@@ -22,11 +22,12 @@ export class Ron {
     return ron;
   }
 
-  json() {
+  // deno-lint-ignore no-explicit-any
+  json(): any {
     if (!this.#value) return {};
     return JSON.parse(ron_to_json_string(this.#value));
   }
-  toString() {
+  toString(): string {
     if (!this.#value) return "";
     return ron_to_string(this.#value);
   }
