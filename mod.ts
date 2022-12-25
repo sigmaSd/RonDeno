@@ -8,7 +8,7 @@ export class Ron {
     this.#value = ron_from_str(str);
     return this;
   }
-  ToString(): string {
+  toString(): string {
     return ron_to_string(this.#value);
   }
 }
