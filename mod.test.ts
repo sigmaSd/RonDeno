@@ -1,7 +1,33 @@
 import { Ron } from "./mod.ts";
-import { assert } from "https://deno.land/std@0.170.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.170.0/testing/asserts.ts";
 
 Deno.test("smoke", () => {
-  const ron = new Ron("(boolean: true, float: 1.23)");
-  assert(ron.toString(), `{"boolean": true, "float": 1.23 }`);
+  const ron = new Ron(`GameConfig( // optional struct name
+    window_size: (800, 600),
+    window_title: "PAC-MAN",
+    fullscreen: false,
+    
+    mouse_sensitivity: 1.4,
+    key_bindings: {
+        "up": Up,
+        "down": Down,
+        "left": Left,
+        "right": Right,
+        
+        // Uncomment to enable WASD controls
+        /*
+        "W": Up,
+        "A": Down,
+        "S": Left,
+        "D": Right,
+        */
+    },
+    
+    difficulty_options: (
+        start_difficulty: Easy,
+        adaptive: false,
+    ),
+)`);
+
+  assertEquals(ron.toString(), `{"difficulty_options":{"adaptive":false,"start_difficulty":()},"fullscreen":false,"key_bindings":{"down":(),"left":(),"right":(),"up":()},"mouse_sensitivity":1.4,"window_size":[800,600],"window_title":"PAC-MAN"}`);
 });
