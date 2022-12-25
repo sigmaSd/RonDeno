@@ -14,4 +14,6 @@ console.log(
 
 ## Developemnt
 
-`deno task wasmbuild` `deno test -A`
+`deno task wasmbuild`
+
+`deno test -A`
