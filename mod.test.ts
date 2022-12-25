@@ -1,11 +1,11 @@
-import { Ron } from "./mod.ts";
 import {
   assertEquals,
   assertThrows,
 } from "https://deno.land/std@0.170.0/testing/asserts.ts";
+import { parse, stringify } from "./mod.ts";
 
 Deno.test("smoke", () => {
-  assertEquals(Ron.fromJSON({}).json(), {});
+  assertEquals(parse(stringify({})), {});
 
   const ronCode = (`GameConfig( // optional struct name
     window_size: (800, 600),
@@ -33,10 +33,9 @@ Deno.test("smoke", () => {
         adaptive: false,
     ),
 )`);
-  const ron = Ron.fromString(ronCode);
 
   assertEquals(
-    ron.json(),
+    parse(ronCode),
     {
       difficulty_options: {
         adaptive: false,
@@ -57,8 +56,6 @@ Deno.test("smoke", () => {
       window_title: "PAC-MAN",
     },
   );
-
-  assertEquals(Ron.fromJSON(ron.json()), Ron.fromString(ronCode));
 });
 
 Deno.test("test errors", () => {
@@ -79,12 +76,12 @@ Deno.test("test errors", () => {
   };
 
   assertThrowsWithMsgIncludes(
-    () => Ron.fromString(""),
+    () => parse(""),
     "Unexpected end of RON",
   );
 
   assertThrowsWithMsgIncludes(
-    () => Ron.fromString("{\\}"),
+    () => parse("{\\}"),
     "Unexpected byte '\\\\'",
   );
 });

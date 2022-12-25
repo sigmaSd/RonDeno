@@ -5,10 +5,10 @@ Deno wasm wrapper over [ron](https://github.com/ron-rs/ron)
 ## Usage
 
 ```ts
-import { Ron } from "https://raw.githubusercontent.com/sigmaSd/RonDeno/master/mod.ts";
+import { parse, stringify } from "https://raw.githubusercontent.com/sigmaSd/RonDeno/master/mod.ts";
 
 console.log(
-  (Ron.fromString("(boolean: true, float: 1.23)")).json(),
+  stringify(parse("(boolean: true, float: 1.23)")))
 );
 ```
 
