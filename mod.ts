@@ -10,7 +10,7 @@ const {
 export class Ron {
   #value?: WasmRon;
 
-  static fromStr(str: string) {
+  static fromString(str: string) {
     const ron = new Ron();
     ron.#value = ron_from_str(str);
     return ron;

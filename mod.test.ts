@@ -28,7 +28,7 @@ Deno.test("smoke", () => {
         adaptive: false,
     ),
 )`);
-  const ron = Ron.fromStr(ronCode);
+  const ron = Ron.fromString(ronCode);
 
   assertEquals(
     ron.json(),
@@ -53,5 +53,5 @@ Deno.test("smoke", () => {
     },
   );
 
-  assertEquals(Ron.fromJSON(ron.json()), Ron.fromStr(ronCode));
+  assertEquals(Ron.fromJSON(ron.json()), Ron.fromString(ronCode));
 });
