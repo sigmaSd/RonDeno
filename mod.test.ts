@@ -1,7 +1,12 @@
 import { Ron } from "./mod.ts";
-import { assertEquals } from "https://deno.land/std@0.170.0/testing/asserts.ts";
+import {
+  assertEquals,
+  assertThrows,
+} from "https://deno.land/std@0.170.0/testing/asserts.ts";
 
 Deno.test("smoke", () => {
+  assertEquals(Ron.fromJSON({}).json(), {});
+
   const ronCode = (`GameConfig( // optional struct name
     window_size: (800, 600),
     window_title: "PAC-MAN",
@@ -54,4 +59,32 @@ Deno.test("smoke", () => {
   );
 
   assertEquals(Ron.fromJSON(ron.json()), Ron.fromString(ronCode));
+});
+
+Deno.test("test errors", () => {
+  //FIXME: Figure out how to not need this rewraping
+  //       Remove this function then
+  const assertThrowsWithMsgIncludes = (f: () => void, msg: string) => {
+    assertThrows(
+      () => {
+        try {
+          f();
+        } catch (e) {
+          throw new Error(e);
+        }
+      },
+      Error,
+      msg,
+    );
+  };
+
+  assertThrowsWithMsgIncludes(
+    () => Ron.fromString(""),
+    "Unexpected end of RON",
+  );
+
+  assertThrowsWithMsgIncludes(
+    () => Ron.fromString("{\\}"),
+    "Unexpected byte '\\\\'",
+  );
 });
