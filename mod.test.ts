@@ -2,7 +2,7 @@ import { Ron } from "./mod.ts";
 import { assertEquals } from "https://deno.land/std@0.170.0/testing/asserts.ts";
 
 Deno.test("smoke", () => {
-  const ron = new Ron(`GameConfig( // optional struct name
+  const ronCode = (`GameConfig( // optional struct name
     window_size: (800, 600),
     window_title: "PAC-MAN",
     fullscreen: false,
@@ -28,6 +28,7 @@ Deno.test("smoke", () => {
         adaptive: false,
     ),
 )`);
+  const ron = new Ron().fromStr(ronCode);
 
   assertEquals(
     ron.json(),
@@ -51,4 +52,6 @@ Deno.test("smoke", () => {
       window_title: "PAC-MAN",
     },
   );
+
+  assertEquals(Ron.fromJSON(ron.json()), new Ron().fromStr(ronCode));
 });
