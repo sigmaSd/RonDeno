@@ -2,7 +2,7 @@ use serde::Deserialize;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
 pub struct Ron {
     value: ron::Value,
 }
@@ -15,6 +15,6 @@ pub fn ron_from_str(str: &str) -> Ron {
 }
 
 #[wasm_bindgen]
-pub fn ron_to_string(ron: Ron) -> String {
+pub fn ron_to_string(ron: &Ron) -> String {
     ron::to_string(&ron.value).unwrap()
 }
