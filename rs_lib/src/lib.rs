@@ -1,4 +1,4 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -15,6 +15,9 @@ pub fn ron_from_str(str: &str) -> Ron {
 }
 
 #[wasm_bindgen]
-pub fn ron_to_string(ron: &Ron) -> String {
-    ron::to_string(&ron.value).unwrap()
+pub fn ron_to_json_string(ron: &Ron) -> String {
+    let mut buffer = vec![];
+    let mut ser = serde_json::Serializer::new(&mut buffer);
+    ron.value.serialize(&mut ser).unwrap();
+    String::from_utf8(buffer).unwrap()
 }

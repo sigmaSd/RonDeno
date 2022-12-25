@@ -1,6 +1,6 @@
 import { instantiate, Ron as WasmRon } from "./lib/rs_lib.generated.js";
 
-const { ron_from_str, ron_to_string } = await instantiate();
+const { ron_from_str, ron_to_json_string } = await instantiate();
 
 export class Ron {
   #value: WasmRon;
@@ -8,7 +8,7 @@ export class Ron {
     this.#value = ron_from_str(str);
     return this;
   }
-  toString(): string {
-    return ron_to_string(this.#value);
+  json() {
+    return JSON.parse(ron_to_json_string(this.#value));
   }
 }

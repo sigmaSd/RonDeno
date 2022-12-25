@@ -29,5 +29,26 @@ Deno.test("smoke", () => {
     ),
 )`);
 
-  assertEquals(ron.toString(), `{"difficulty_options":{"adaptive":false,"start_difficulty":()},"fullscreen":false,"key_bindings":{"down":(),"left":(),"right":(),"up":()},"mouse_sensitivity":1.4,"window_size":[800,600],"window_title":"PAC-MAN"}`);
+  assertEquals(
+    ron.json(),
+    {
+      difficulty_options: {
+        adaptive: false,
+        start_difficulty: null,
+      },
+      fullscreen: false,
+      key_bindings: {
+        down: null,
+        left: null,
+        right: null,
+        up: null,
+      },
+      mouse_sensitivity: 1.4,
+      window_size: [
+        800,
+        600,
+      ],
+      window_title: "PAC-MAN",
+    },
+  );
 });
