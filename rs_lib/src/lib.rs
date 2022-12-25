@@ -22,8 +22,7 @@ pub fn ron_from_json_string(str: &str) -> Ron {
     let mut ser = ron::Serializer::new(&mut buffer, None).unwrap();
     value.serialize(&mut ser).unwrap();
     Ron {
-        //FIXME(perf): De-serialize from bytes directly
-        value: ron::from_str(&String::from_utf8(buffer).unwrap()).unwrap(),
+        value: ron::de::from_bytes(&buffer).unwrap(),
     }
 }
 
@@ -33,4 +32,9 @@ pub fn ron_to_json_string(ron: &Ron) -> String {
     let mut ser = serde_json::Serializer::new(&mut buffer);
     ron.value.serialize(&mut ser).unwrap();
     String::from_utf8(buffer).unwrap()
+}
+
+#[wasm_bindgen]
+pub fn ron_to_string(ron: &Ron) -> String {
+    ron::ser::to_string(&ron.value).unwrap()
 }

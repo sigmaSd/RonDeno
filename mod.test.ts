@@ -9,40 +9,40 @@ Deno.test("smoke", () => {
     
     mouse_sensitivity: 1.4,
     key_bindings: {
-        "up": Up,
-        "down": Down,
-        "left": Left,
-        "right": Right,
+        "up": "Up",
+        "down": "Down",
+        "left": "Left",
+        "right": "Right",
         
         // Uncomment to enable WASD controls
         /*
-        "W": Up,
-        "A": Down,
-        "S": Left,
-        "D": Right,
+        "W": "Up",
+        "A": "Down",
+        "S": "Left",
+        "D": "Right",
         */
     },
     
     difficulty_options: (
-        start_difficulty: Easy,
+        start_difficulty: "Easy",
         adaptive: false,
     ),
 )`);
-  const ron = new Ron().fromStr(ronCode);
+  const ron = Ron.fromStr(ronCode);
 
   assertEquals(
     ron.json(),
     {
       difficulty_options: {
         adaptive: false,
-        start_difficulty: null,
+        start_difficulty: "Easy",
       },
       fullscreen: false,
       key_bindings: {
-        down: null,
-        left: null,
-        right: null,
-        up: null,
+        down: "Down",
+        left: "Left",
+        right: "Right",
+        up: "Up",
       },
       mouse_sensitivity: 1.4,
       window_size: [
@@ -53,5 +53,5 @@ Deno.test("smoke", () => {
     },
   );
 
-  assertEquals(Ron.fromJSON(ron.json()), new Ron().fromStr(ronCode));
+  assertEquals(Ron.fromJSON(ron.json()), Ron.fromStr(ronCode));
 });
